@@ -1,6 +1,4 @@
-### Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+
 
 { inputs, config, pkgs, ... }:
 
@@ -55,8 +53,6 @@
     isNormalUser = true;
     description = "marie";
     extraGroups = [ "networkmanager" "wheel" ];
-     packages = with pkgs; [
-    ];
   };
 # Maii keyy :3 
 users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIBTGgUYUsIAtcbZBqk5Mq0LH2T5KGFjdjAgNIwUf+/LBAAAABHNzaDo= pilz@framewok"];
@@ -112,7 +108,7 @@ users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAA
     spotifyd
     pipes
   ];
-
+#an openssh banner, is shown everytime you try to connect
 services.openssh.banner = "
 ***************************************************************************
                             NOTICE TO USERS
@@ -138,7 +134,7 @@ stated in this warning.
 *****************************************************************************";
 
 
-
+# spotifyd is a service for streaming spotify to this device
 services.spotifyd.enable = true;
   programs.gnupg.agent = {
     enable = true;
