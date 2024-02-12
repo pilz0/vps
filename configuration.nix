@@ -1,5 +1,3 @@
-
-
 { inputs, config, pkgs, ... }:
 
 {
@@ -143,7 +141,7 @@ services.spotifyd.enable = true;
 
  #  Enable the OpenSSH daemon.
    services.openssh.enable = true;
-#   Disable PasswordAuthentication 
+#   Disable Password Authentication 
    services.openssh.settings.PasswordAuthentication = false;
 
   # Open ports in the firewall.
@@ -153,5 +151,4 @@ services.spotifyd.enable = true;
 #   networking.firewall.enable = false;
 #NixOS Version
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
