@@ -59,6 +59,8 @@ users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAA
   nixpkgs.config.allowUnfree = true;
   
   #Services
+  #grafana
+  services.grafana.enable = true;
   #zsh
   programs.zsh.enable = true;
   programs.zsh.ohMyZsh.enable = true;
@@ -72,6 +74,7 @@ users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAA
   #All my Programms :3
   environment.systemPackages = with pkgs; [
     htop
+    prometheus
     onionshare
     unzip
     vim
