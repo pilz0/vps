@@ -146,7 +146,12 @@ services.spotifyd.enable = true;
    services.openssh.enable = true;
 #   Disable Password Authentication 
    services.openssh.settings.PasswordAuthentication = false;
-
+  nix = {
+    package = pkgs.nixVersions.stable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+    
   # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 8080 443 80 22 3000 8443 ];
    networking.firewall.allowedUDPPorts = [ 8080 443 80 22 3000 8443 ];
