@@ -79,17 +79,6 @@ users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAA
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
-  #Services
-  #grafana
- # services.grafana.enable = true;
-  #zsh
-  programs.zsh.enable = true;
-  programs.zsh.ohMyZsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-  #Network manager
-  networking.networkmanager.enable = true; 
-  #Mullvad VPN
-  services.mullvad-vpn.enable = true;
   #Docker
   virtualisation.docker.enable = true;
   #All my Programms :3
