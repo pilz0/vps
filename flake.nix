@@ -4,7 +4,7 @@
   };
   outputs = { nixpkgs, ... }: {
     nixosConfigurations = {
-      framwok = nixpkgs.lib.nixosSystem {
+      serva = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
