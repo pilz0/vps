@@ -1,7 +1,12 @@
+### Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
 { inputs, config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
   # Bootloader.
@@ -9,6 +14,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   #Hostname
   networking.hostName = "serva";
+
   #Self doxx UwU
   time.timeZone = "Europe/Berlin";
 
@@ -25,12 +31,6 @@
     LC_PAPER = "de_DE.UTF-8";
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
-  };
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "de";
-    xkbVariant = "";
   };
 
   console.keyMap = "de";
@@ -51,7 +51,30 @@
     isNormalUser = true;
     description = "marie";
     extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      firefox #idk why this is still here, move it to the other pkgs at some point
+    ];
   };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+  #Services
+  #zsh
+  programs.zsh.enable = true;
+  programs.zsh.ohMyZsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.ohMyZsh.theme = "crunch";
+  #Network manager
+  networking.networkmanager.enable = true;
+  #Mullvad VPN
+  services.mullvad-vpn.enable = true;
+  #Flakes
+  nix = {
+    package = pkgs.nixVersions.stable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+     };
 # Maii keyy :3 
 users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIBTGgUYUsIAtcbZBqk5Mq0LH2T5KGFjdjAgNIwUf+/LBAAAABHNzaDo= pilz@framewok"];
 
@@ -60,7 +83,7 @@ users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAA
   
   #Services
   #grafana
-  services.grafana.enable = true;
+ # services.grafana.enable = true;
   #zsh
   programs.zsh.enable = true;
   programs.zsh.ohMyZsh.enable = true;
@@ -137,28 +160,17 @@ stated in this warning.
 
 # spotifyd is a service for streaming spotify to this device
 services.spotifyd.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    # enableSSHSupport = true;
-   };
 
- #  Enable the OpenSSH daemon.
-   services.openssh.enable = true;
-#   Disable Password Authentication 
-   services.openssh.settings.PasswordAuthentication = false;
-  
-    nix.package = pkgs.nixVersions.unstable;
-    nix.extraOptions = ''
-      experimental-features = nix-command flakes
-    ''; 
-    
-
-
+# Openssh
+  services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = false;
+  programs.ssh.startAgent = true;
   # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 8080 443 80 22 3000 8443 ];
    networking.firewall.allowedUDPPorts = [ 8080 443 80 22 3000 8443 ];
   # Or disable the firewall altogether.
-#   networking.firewall.enable = false;
-#NixOS Version
+  # networking.firewall.enable = false;
+# NixOS Version
   system.stateVersion = "23.11"; # Did you read the comment?
+
 }
