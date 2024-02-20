@@ -47,25 +47,25 @@
   };
 
   #my user account
-  users.users.marie = {
-    isNormalUser = true;
-    description = "marie";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox #idk why this is still here, move it to the other pkgs at some point
-    ];
-  };
+    users.users.marie = {
+      isNormalUser = true;
+      description = "marie";
+      extraGroups = [ "networkmanager" "wheel" ];
+      packages = with pkgs; [
+        firefox #idk why this is still here, move it to the other pkgs at some point
+      ];
+    };
 
   #Services
   #zsh
-  programs.zsh.enable = true;
-  programs.zsh.ohMyZsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-  programs.zsh.ohMyZsh.theme = "crunch";
+    programs.zsh.enable = true;
+    programs.zsh.ohMyZsh.enable = true;
+    users.defaultUserShell = pkgs.zsh;
+    programs.zsh.ohMyZsh.theme = "crunch";
   #Network manager
-  networking.networkmanager.enable = true;
+    networking.networkmanager.enable = true;
   #Mullvad VPN
-  services.mullvad-vpn.enable = true;
+    services.mullvad-vpn.enable = true;
   #Flakes
   nix = {
     package = pkgs.nixVersions.stable;
@@ -73,19 +73,18 @@
       experimental-features = nix-command flakes
     '';
      };
-# Maii keyy :3 
-users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIBTGgUYUsIAtcbZBqk5Mq0LH2T5KGFjdjAgNIwUf+/LBAAAABHNzaDo= pilz@framewok"];
+  # Maii keyy :3 
+  users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIBTGgUYUsIAtcbZBqk5Mq0LH2T5KGFjdjAgNIwUf+/LBAAAABHNzaDo= pilz@framewok"];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
+
   #Docker
   virtualisation.docker.enable = true;
   #All my Programms :3
   environment.systemPackages = with pkgs; [
     htop
     prometheus
-    onionshare
     unzip
     vim
     fastfetch
@@ -118,35 +117,49 @@ users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAA
     killall
     spotifyd
     pipes
-  ];
-#an openssh banner, is shown everytime you try to connect
-services.openssh.banner = "
-***************************************************************************
-                            NOTICE TO USERS
+    ];
 
-This is a Federal computer system and is the property of the United
-States Government. It is for authorized use only. Users (authorized or
-unauthorized) have no explicit or implicit expectation of privacy.
+    #an openssh banner, is shown everytime you try to connect
+    services.openssh.banner = "
+      ***************************************************************************
+                                  NOTICE TO USERS
 
-Any or all uses of this system and all files on this system may be
-intercepted, monitored, recorded, copied, audited, inspected, and disclosed to
-authorized site, Department of Energy, and law enforcement personnel,
-as well as authorized officials of other agencies, both domestic and foreign.
-By using this system, the user consents to such interception, monitoring,
-recording, copying, auditing, inspection, and disclosure at the discretion of
-authorized site or Department of Energy personnel.
+      This is a Federal computer system and is the property of the United
+      States Government. It is for authorized use only. Users (authorized or
+      unauthorized) have no explicit or implicit expectation of privacy.
 
-Unauthorized or improper use of this system may result in administrative
-disciplinary action and civil and criminal penalties. By continuing to use
-this system you indicate your awareness of and consent to these terms and
-conditions of use. LOG OFF IMMEDIATELY if you do not agree to the conditions
-stated in this warning.
+      Any or all uses of this system and all files on this system may be
+      intercepted, monitored, recorded, copied, audited, inspected, and disclosed to
+      authorized site, Department of Energy, and law enforcement personnel,
+      as well as authorized officials of other agencies, both domestic and foreign.
+      By using this system, the user consents to such interception, monitoring,
+      recording, copying, auditing, inspection, and disclosure at the discretion of
+      authorized site or Department of Energy personnel.
 
-*****************************************************************************";
+      Unauthorized or improper use of this system may result in administrative
+      disciplinary action and civil and criminal penalties. By continuing to use
+      this system you indicate your awareness of and consent to these terms and
+      conditions of use. LOG OFF IMMEDIATELY if you do not agree to the conditions
+      stated in this warning.
+
+      *****************************************************************************";
 
 
 # spotifyd is a service for streaming spotify to this device
 services.spotifyd.enable = true;
+# Autoupdate
+system.autoUpgrade = {
+  enable = true;
+  flake = inputs.self.outPath;
+  flags = [
+    "--update-input"
+    "nixpkgs"
+    "-L" # print build logs
+  ];
+  dates = "02:00";
+  randomizedDelaySec = "45min";
+};
+
 
 # Openssh
   services.openssh.enable = true;
