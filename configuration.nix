@@ -56,8 +56,6 @@
     ];
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
   #Services
   #zsh
   programs.zsh.enable = true;
