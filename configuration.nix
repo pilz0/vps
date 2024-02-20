@@ -34,7 +34,6 @@
   };
 
   console.keyMap = "de";
-  services.printing.enable = true;
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -47,16 +46,14 @@
   };
 
   #my user account
-    users.users.marie = {
-      isNormalUser = true;
-      description = "marie";
-      extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [
-        firefox #idk why this is still here, move it to the other pkgs at some point
-      ];
-    };
+      users.users.marie.isNormalUser = true;
+      users.users.marie.description = "marie";
+      users.users.marie.extraGroups = [ "networkmanager" "wheel" ];
 
+    
   #Services
+  #X11?
+    services.xserver.enable = true
   #zsh
     programs.zsh.enable = true;
     programs.zsh.ohMyZsh.enable = true;
