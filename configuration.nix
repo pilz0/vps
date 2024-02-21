@@ -107,6 +107,7 @@
     alacritty
     cmatrix
     btop
+    wget
     gtop
     freerdp
     killall
