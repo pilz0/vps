@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-stable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
   };
   outputs = { nixpkgs, ... }: {
     nixosConfigurations = {
