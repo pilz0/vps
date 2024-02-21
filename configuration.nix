@@ -52,8 +52,6 @@
 
     
   #Services
-  #X11?
-    services.xserver.enable = true
   #zsh
     programs.zsh.enable = true;
     programs.zsh.ohMyZsh.enable = true;
