@@ -158,7 +158,7 @@ services.spotifyd.enable = true;
     programs.zsh.ohMyZsh.theme = "crunch";
     programs.zsh.autosuggestions.enable = true;
     programs.zsh.shellAliases = { backup = "restic -r rclone:onedrive:/backup/server1 backup --verbose /home";};
-    programs.zsh.shellAliases = { update = "sudo nix flake update /home/server";};
+    programs.zsh.shellAliases = { update = "sudo nix flake update /home/marie/server";};
     programs.zsh.shellAliases = { rebuild = "sudo nixos-rebuild --flake /home/marie/server switch";};
     users.defaultUserShell = pkgs.zsh;
   #git  
