@@ -53,11 +53,6 @@
     
   #Services
   #zsh
-    programs.zsh.enable = true;
-    programs.zsh.ohMyZsh.enable = true;
-    users.defaultUserShell = pkgs.zsh;
-    programs.zsh.ohMyZsh.theme = "crunch";
-  #Network manager
     networking.networkmanager.enable = true;
   #Mullvad VPN
     services.mullvad-vpn.enable = true;
@@ -111,6 +106,8 @@
     gtop
     freerdp
     killall
+    picocom
+    dnsmasq
     spotifyd
     pipes
     ];
@@ -156,7 +153,22 @@ services.spotifyd.enable = true;
  # randomizedDelaySec = "45min";
 #};
 
+  programs.zsh.enable = true;
+    programs.zsh.ohMyZsh.enable = true;
+    programs.zsh.ohMyZsh.theme = "crunch";
+    programs.zsh.autosuggestions.enable = true;
+    programs.zsh.shellAliases = { backup = "restic -r rclone:onedrive:/backup/server backup --verbose /home";};
+    programs.zsh.shellAliases = { update = "sudo nix flake update /home/marie/Dokumente/laptop";};
+    programs.zsh.shellAliases = { rebuild = "sudo nixos-rebuild --flake /home/marie/Dokumente/laptop switch";};
+    users.defaultUserShell = pkgs.zsh;
+  #git  
+    programs.git.config.user.name = "pilz0";
+    programs.git.config.user.email = "marie0@riseup.net";
 
+
+  environment.sessionVariables = {
+    NIXPKGS_ALLOW_UNFREE="1";
+    };
 # Openssh
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
