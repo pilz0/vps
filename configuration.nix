@@ -168,7 +168,7 @@ services.spotifyd.enable = true;
 # Autoupdate 
 system.autoUpgrade = {
   enable = true;
-  flake = home/marie/server/flake.nix;
+  flake = /home/marie/server/flake.nix;
   flags = [
     "--update-input"
     "nixpkgs"
