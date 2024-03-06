@@ -165,6 +165,19 @@ services.spotifyd.enable = true;
     programs.git.config.user.name = "pilz0";
     programs.git.config.user.email = "marie0@riseup.net";
 
+# Autoupdate 
+system.autoUpgrade = {
+  enable = true;
+  flake = home/marie/server/flake.nix;
+  flags = [
+    "--update-input"
+    "nixpkgs"
+    "-L" # print build logs
+  ];
+  dates = "02:00";
+  randomizedDelaySec = "45min";
+};
+
 
   environment.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE="1";
