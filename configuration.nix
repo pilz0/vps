@@ -167,7 +167,6 @@ system.autoUpgrade = {
 };
 
 # Auto git pull
-  # Enable cron service
   services.cron = {
     enable = true;
     systemCronJobs = [
@@ -198,3 +197,5 @@ system.autoUpgrade = {
 #  That’s not correct. The  authorizedKeys.keys  attribute is a list of strings. 
 #  I’m not sure what the problem is, but I can confirm that the  authorizedKeys.keys  attribute is a list of strings. 
 #  I’m sorry, I was wrong. 
+
+#testing git sync :3
