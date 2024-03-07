@@ -140,18 +140,6 @@
 
 # spotifyd is a service for streaming spotify to this device
 services.spotifyd.enable = true;
-# Autoupdate
-#system.autoUpgrade = {
-  #enable = true;
-  #flake = inputs.self.outPath;
-  #flags = [
-    #"--update-input"
-    #"nixpkgs"
-   # "-L" # print build logs
-  #];
-  #dates = "02:00";
- # randomizedDelaySec = "45min";
-#};
 
   programs.zsh.enable = true;
     programs.zsh.ohMyZsh.enable = true;
@@ -178,10 +166,16 @@ system.autoUpgrade = {
   randomizedDelaySec = "45min";
 };
 
+# Auto git pull
+  # Enable cron service
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "*/5 * * * *      root    cd /home/server && git pull"
+    ];
+  };
 
-  environment.sessionVariables = {
-    NIXPKGS_ALLOW_UNFREE="1";
-    };
+  environment.sessionVariables.NIXPKGS_ALLOW_UNFREE="1"; 
 # Openssh
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
@@ -203,4 +197,4 @@ system.autoUpgrade = {
 #  I think the problem is that the authorizedKeys.keys is not a list of strings, but a list of objects with a key and a value. 
 #  That’s not correct. The  authorizedKeys.keys  attribute is a list of strings. 
 #  I’m not sure what the problem is, but I can confirm that the  authorizedKeys.keys  attribute is a list of strings. 
-#  I’m sorry, I was wrong.  
+#  I’m sorry, I was wrong. 
