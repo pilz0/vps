@@ -170,7 +170,7 @@ system.autoUpgrade = {
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/5 * * * *      root    cd /home/server && git pull"
+      "*/5 * * * *      root    cd /home/marie/server && git pull"
     ];
   };
 
