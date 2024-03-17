@@ -98,6 +98,7 @@
     superTuxKart
     cargo
     gcc
+    docker-compose
     vlc
     alacritty
     cmatrix
@@ -156,7 +157,7 @@ services.spotifyd.enable = true;
 # Autoupdate 
 system.autoUpgrade = {
   enable = true;
-  flake = "/home/marie/server/flake.nix";
+  flake = "github:pilz0/server";
   flags = [
     "--update-input"
     "nixpkgs"
@@ -166,13 +167,6 @@ system.autoUpgrade = {
   randomizedDelaySec = "45min";
 };
 
-# Auto git pull
-  services.cron = {
-    enable = true;
-    systemCronJobs = [
-      "*/5 * * * *      root    cd /home/marie/server && git pull"
-    ];
-  };
 
   environment.sessionVariables.NIXPKGS_ALLOW_UNFREE="1"; 
 # Openssh
@@ -196,6 +190,4 @@ system.autoUpgrade = {
 #  I think the problem is that the authorizedKeys.keys is not a list of strings, but a list of objects with a key and a value. 
 #  That’s not correct. The  authorizedKeys.keys  attribute is a list of strings. 
 #  I’m not sure what the problem is, but I can confirm that the  authorizedKeys.keys  attribute is a list of strings. 
-#  I’m sorry, I was wrong. 
-
-# test2 for git sync
+#  I’m sorry, I was wrong.
