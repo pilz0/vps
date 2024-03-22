@@ -104,6 +104,7 @@
     dnsmasq
     spotifyd
     pipes
+    arion
     ];
     #an openssh banner, is shown everytime you try to connect
     services.openssh.banner = "
