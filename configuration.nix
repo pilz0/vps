@@ -9,7 +9,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./arion-compose.nix
   ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -105,7 +104,6 @@
     dnsmasq
     spotifyd
     pipes
-    arion
     ];
     #an openssh banner, is shown everytime you try to connect
     services.openssh.banner = "
@@ -141,7 +139,6 @@ services.spotifyd.enable = true;
     programs.git.config.user.name = "pilz0";
     programs.git.config.user.email = "marie0@riseup.net";
 # Autoupdate 
-#container stuff
 system.autoUpgrade = {
   enable = true;
   flake = "github:pilz0/server";
