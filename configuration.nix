@@ -110,6 +110,7 @@
     picocom
     dnsmasq
     spotifyd
+    arion
     pipes
     ];
 
