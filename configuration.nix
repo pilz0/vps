@@ -140,6 +140,7 @@ services.spotifyd.enable = true;
     programs.git.config.user.name = "pilz0";
     programs.git.config.user.email = "marie0@riseup.net";
 # Docker Container migration
+modules = [ "arion.nixosModules.arion" ];
   services.uptimekuma = {
     service.image = "louislam/uptime-kuma:1";
     service.volumes = [ "/var/run/docker.sock:/var/run/docker.sock" "/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net:/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net" "/home/marie/mykuma/data:/app/data" ];
