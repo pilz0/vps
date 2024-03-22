@@ -9,6 +9,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./arion-compose.nix
   ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -139,18 +140,9 @@ services.spotifyd.enable = true;
   #git  
     programs.git.config.user.name = "pilz0";
     programs.git.config.user.email = "marie0@riseup.net";
-# Docker Container migration
-modules = [ "arion.nixosModules.arion" ];
-  services.uptimekuma = {
-    service.image = "louislam/uptime-kuma:1";
-    service.volumes = [ "/var/run/docker.sock:/var/run/docker.sock" "/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net:/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net" "/home/marie/mykuma/data:/app/data" ];
-    service.environment.SSL_KEY = "/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net/fff161.ddns.net.key";
-    service.environment.SSL_CERT = "/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net/fff161.ddns.net.crt";
-    service.environment.UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN = "1";
-    service.ports = [ "3000:3001" ];
-    service.restart = "unless-stopped";
-  };
 # Autoupdate 
+#container stuff
+modules = [ ./arion-compose.nix ];
 system.autoUpgrade = {
   enable = true;
   flake = "github:pilz0/server";
