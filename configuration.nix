@@ -142,7 +142,6 @@ services.spotifyd.enable = true;
     programs.git.config.user.email = "marie0@riseup.net";
 # Autoupdate 
 #container stuff
-modules = [ ./arion-compose.nix ];
 system.autoUpgrade = {
   enable = true;
   flake = "github:pilz0/server";
