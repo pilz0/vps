@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, modules, ... }:
 
 {
   imports = [
@@ -153,6 +153,20 @@ services.spotifyd.enable = true;
   #git  
     programs.git.config.user.name = "pilz0";
     programs.git.config.user.email = "marie0@riseup.net";
+# Docker Container migration
+  virtualisation.podman.enable = true;
+  virtualisation.podman.dockerSocket.enable = true;
+  virtualisation.podman.defaultNetwork.dnsname.enable = true;
+virtualisation.arion = {
+  services.uptimekuma = {
+    service.image = "louislam/uptime-kuma:1";
+    service.volumes = [ "/var/run/docker.sock:/var/run/docker.sock" "/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net:/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net" "/home/marie/mykuma/data:/app/data" ];
+    service.environment.SSL_KEY = "/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net/fff161.ddns.net.key";
+    service.environment.SSL_CERT = "/var/lib/docker/volumes/nextcloud_aio_apache/_data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/fff161.ddns.net/fff161.ddns.net.crt";
+    service.environment.UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN = "1";
+    service.ports = [ "3000:3001" ];
+    service.restart = "unless-stopped";
+  };
 
 # Autoupdate 
 system.autoUpgrade = {
