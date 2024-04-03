@@ -104,6 +104,7 @@
     dnsmasq
     spotifyd
     pipes
+    ddclient
     ];
     #an openssh banner, is shown everytime you try to connect
     services.openssh.banner = "
@@ -156,8 +157,8 @@ system.autoUpgrade = {
   services.openssh.settings.PasswordAuthentication = false;
   programs.ssh.startAgent = true;
   # Open ports in the firewall.
-   networking.firewall.allowedTCPPorts = [ 8080 443 80 22 3000 8443 1337 ];
-   networking.firewall.allowedUDPPorts = [ 8080 443 80 22 3000 8443 1337 ];
+   networking.firewall.allowedTCPPorts = [ 81 8080 443 80 22 3000 8443 1337 ];
+   networking.firewall.allowedUDPPorts = [ 81 8080 443 80 22 3000 8443 1337 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 # NixOS Version
