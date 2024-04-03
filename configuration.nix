@@ -160,7 +160,7 @@ system.autoUpgrade = {
 services.ddclient.quiet = true;
 services.ddclient.protocol = "cloudflare";
 services.ddclient.use = "web, web=myip.dnsomatic.com";
-services.ddclient.ssl = "yes";
+services.ddclient.ssl = true;
 services.ddclient.server = "api.cloudflare.com";
 services.ddclient.username = "a638a08fdf210c0b4cba6c694f6717ad";
 services.ddclient.passwordFile= "/home/marie/password";  # Open ports in the firewall.
