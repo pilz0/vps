@@ -163,6 +163,7 @@ system.autoUpgrade = {
     systemCronJobs = [
       "*/5 * * * *      marie    bash /home/marie/dyndns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh"
     ];
+  };
       # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 81 8080 443 80 22 3000 8443 1337 ];
    networking.firewall.allowedUDPPorts = [ 81 8080 443 80 22 3000 8443 1337 ];
