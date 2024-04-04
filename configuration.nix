@@ -165,8 +165,8 @@ system.autoUpgrade = {
     ];
   };
       # Open ports in the firewall.
-   networking.firewall.allowedTCPPorts = [ 81 8080 443 80 22 3000 8443 1337 ];
-   networking.firewall.allowedUDPPorts = [ 81 8080 443 80 22 3000 8443 1337 ];
+   networking.firewall.allowedTCPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 ];
+   networking.firewall.allowedUDPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 # NixOS Version
