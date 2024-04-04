@@ -67,6 +67,7 @@
   #All my Programms :3
   environment.systemPackages = with pkgs; [
     htop
+    busybox
     prometheus
     unzip
     vim
@@ -156,11 +157,13 @@ system.autoUpgrade = {
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   programs.ssh.startAgent = true;
-  
-  services.ddclient = {
+    # Enable cron service
+  services.cron = {
     enable = true;
-    configFile = "/private/ddclient_opendns.conf";
-  };  # Open ports in the firewall.
+    systemCronJobs = [
+      "*/5 * * * *      marie    bash /home/marie/dyndns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh"
+    ];
+      # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 81 8080 443 80 22 3000 8443 1337 ];
    networking.firewall.allowedUDPPorts = [ 81 8080 443 80 22 3000 8443 1337 ];
   # Or disable the firewall altogether.
