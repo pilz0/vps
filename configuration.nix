@@ -157,13 +157,27 @@ system.autoUpgrade = {
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   programs.ssh.startAgent = true;
-    # Enable cron service
-  services.cron = {
-    enable = true;
-    systemCronJobs = [
-      "*/5 * * * *      marie    bash /home/marie/dyndns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh"
-    ];
+    # dyndns
+systemd.timers."dyndns" = {
+  wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "5m";
+      OnUnitActiveSec = "5m";
+      Unit = "dyndns";
+    };
+};
+
+systemd.services."dyndns" = {
+  script = ''
+    set -eu
+    ${pkgs.coreutils}bash /home/marie/dyndns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh"
+  '';
+  serviceConfig = {
+    Type = "oneshot";
+    User = "root";
   };
+};
+
       # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 ];
    networking.firewall.allowedUDPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 ];
