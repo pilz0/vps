@@ -198,7 +198,6 @@ systemd.services. "gitpull" = {
 
 systemd.timers."rebuild" = {
   wantedBy = [ "timers.target" ];
-    timerConfig = {
   timerConfig = {
       OnCalendar = "daily";
       Persistent = true; 
