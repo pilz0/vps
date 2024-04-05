@@ -189,11 +189,11 @@ systemd.timers."gitpull" = {
 systemd.services. "gitpull" = {
   script = ''git pull /home/marie/server
   '';
-  timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true; 
+    serviceConfig = {
+    Type = "oneshot";
+    User = "marie";
   };
-};
+  };
 
 systemd.timers."rebuild" = {
   wantedBy = [ "timers.target" ];
