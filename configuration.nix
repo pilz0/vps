@@ -175,6 +175,44 @@ systemd.services."dyndns" = {
     User = "marie";
   };
 };
+nix.optimise.automatic = true;
+nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule
+
+systemd.timers."gitpull" = {
+  wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "60m";
+      OnUnitActiveSec = "60m";
+      Unit = "gitpull";
+    };
+};
+
+systemd.services. "gitpull" = {
+  script = ''git pull /home/marie/server
+  '';
+  timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true; 
+  };
+};
+
+systemd.timers."rebuild" = {
+  wantedBy = [ "timers.target" ];
+    timerConfig = {
+  timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true; 
+  };
+};
+
+systemd.services. "gitpull" = {
+  script = ''rebuild
+  '';
+  serviceConfig = {
+    Type = "oneshot";
+    User = "marie";
+  };
+};
 
       # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 ];
