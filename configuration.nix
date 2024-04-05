@@ -204,7 +204,7 @@ systemd.timers."rebuild" = {
   };
 };
 
-systemd.services. "gitpull" = {
+systemd.services. "rebuild" = {
   script = ''rebuild
   '';
   serviceConfig = {
