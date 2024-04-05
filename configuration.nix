@@ -180,10 +180,9 @@ nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation sc
 
 systemd.timers."gitpull" = {
   wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "60m";
-      OnUnitActiveSec = "60m";
-      Unit = "gitpull";
+  timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true; 
     };
 };
 
