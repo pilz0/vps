@@ -168,13 +168,11 @@ systemd.timers."dyndns" = {
 };
 
 systemd.services."dyndns" = {
-  script = ''
-    set -eu
-    ${pkgs.coreutils}bash /home/marie/dyndns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh"
+  script = ''bash /home/marie/dyndns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh
   '';
   serviceConfig = {
     Type = "oneshot";
-    User = "root";
+    User = "marie";
   };
 };
 
