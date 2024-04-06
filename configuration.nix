@@ -169,7 +169,7 @@ systemd.timers."dyndns" = {
 };
 
 systemd.services."dyndns" = {
-  Requires = [ "curl" "busybox" "toybox" ];
+  path = [ "curl" "busybox" "toybox" ];
   serviceConfig = {
     ExecStart = "/bin/sh /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh";
     Type = "oneshot";
