@@ -152,7 +152,6 @@ system.autoUpgrade = {
     "nixpkgs"
     "-L" # print build logs
   ];
-  dates = "02:00";
   randomizedDelaySec = "45min";
 };
   environment.sessionVariables.NIXPKGS_ALLOW_UNFREE="1"; 
@@ -171,7 +170,7 @@ systemd.timers."dyndns" = {
 };
 
 systemd.services."dyndns" = {
-  path = [ "curl" "busybox" "toybox" ];
+  path = [ "curl" "busybox" "toybox"];
   serviceConfig = {
     ExecStart = "${pkgs.bash} /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh";
     Type = "oneshot";
