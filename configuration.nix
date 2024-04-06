@@ -169,7 +169,8 @@ systemd.timers."dyndns" = {
 };
 
 systemd.services."dyndns" = {
-  script = ''${pkgs.coreutils} ${pkgs.curl}sh /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh
+  path = [ pkgs.curl ];
+  script = ''sh /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh
   '';
   serviceConfig = {
     Type = "oneshot";
@@ -181,9 +182,10 @@ nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation sc
 
 systemd.timers."gitpull" = {
   wantedBy = [ "timers.target" ];
-  timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true; 
+    timerConfig = {
+      OnBootSec = "180m";
+      OnUnitActiveSec = "180m";
+      Unit = "gitpull";
     };
 };
 
