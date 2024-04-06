@@ -168,7 +168,7 @@ systemd.timers."dyndns" = {
 };
 
 systemd.services."dyndns" = {
-  script = ''bash /home/marie/dyndns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh
+  script = ''bash /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh
   '';
   serviceConfig = {
     Type = "oneshot";
