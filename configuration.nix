@@ -105,6 +105,7 @@
     dnsmasq
     spotifyd
     pipes
+    curl
     ddclient
     ];
     #an openssh banner, is shown everytime you try to connect
@@ -168,7 +169,7 @@ systemd.timers."dyndns" = {
 };
 
 systemd.services."dyndns" = {
-  script = ''"bash /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh"
+  script = ''${pkgs.coreutils} ${pkgs.curl}"sh  /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh"
   '';
   serviceConfig = {
     Type = "oneshot";
@@ -204,11 +205,11 @@ systemd.timers."rebuild" = {
 };
 
 systemd.services. "rebuild" = {
-  script = ''rebuild
+  script = ''nixos-rebuild --flake /home/marie/server switch
   '';
   serviceConfig = {
     Type = "oneshot";
-    User = "marie";
+    User = "root";
   };
 };
 
