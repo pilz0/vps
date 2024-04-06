@@ -172,7 +172,7 @@ systemd.timers."dyndns" = {
 systemd.services."dyndns" = {
   path = [ "curl" "busybox" "toybox"];
   serviceConfig = {
-    ExecStart = "${pkgs.bash} /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh";
+    ExecStart = "${pkgs.bash}/bin/bash /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh";
     Type = "oneshot";
     User = "marie";
   };
