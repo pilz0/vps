@@ -169,7 +169,7 @@ systemd.timers."dyndns" = {
 };
 
 systemd.services."dyndns" = {
-  path = [ pkgs.curl ];
+  Requires = [ "curl" ];
   script = ''sh /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh
   '';
   serviceConfig = {
