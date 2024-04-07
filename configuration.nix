@@ -170,12 +170,11 @@ systemd.timers."dyndns" = {
 };
 
 
-{
   services.ddclient = {
     enable = true;
     configFile = "/home/marie/dnydns/ddclient_opendns.conf";
   };
-}
+
 nix.optimise.automatic = true;
 nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule
 
