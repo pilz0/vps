@@ -169,14 +169,13 @@ systemd.timers."dyndns" = {
     };
 };
 
-systemd.services."dyndns" = {
-  path = [ "curl" "busybox" "toybox"];
-  serviceConfig = {
-    ExecStart = "${pkgs.bash}/bin/bash /home/marie/dnydns/DDNS-Cloudflare-Bash/update-cloudflare-dns.sh";
-    Type = "oneshot";
-    User = "marie";
+
+{
+  services.ddclient = {
+    enable = true;
+    configFile = "/home/marie/dnydns/ddclient_opendns.conf";
   };
-};
+}
 nix.optimise.automatic = true;
 nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule
 
@@ -189,7 +188,7 @@ systemd.timers."gitpull" = {
 };
 
 systemd.services. "gitpull" = {
-  script = ''git pull /home/marie/server
+  script = ''${pkgs.git}git pull /home/marie/server
   '';
     serviceConfig = {
     Type = "oneshot";
