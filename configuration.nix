@@ -159,41 +159,9 @@ system.autoUpgrade = {
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   programs.ssh.startAgent = true;
-    # dyndns
-systemd.timers."dyndns" = {
-  wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "5m";
-      OnUnitActiveSec = "5m";
-      Unit = "dyndns";
-    };
-};
-
-
-  services.ddclient = {
-    enable = true;
-    configFile = "/home/marie/dnydns/ddclient_opendns.conf";
-  };
 
 nix.optimise.automatic = true;
 nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule
-
-systemd.timers."gitpull" = {
-  wantedBy = [ "timers.target" ];
-  timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true; 
-  };
-};
-
-systemd.services. "gitpull" = {
-  script = ''${pkgs.git}git pull /home/marie/server
-  '';
-    serviceConfig = {
-    Type = "oneshot";
-    User = "marie";
-  };
-  };
 
 systemd.timers."rebuild" = {
   wantedBy = [ "timers.target" ];
@@ -204,7 +172,7 @@ systemd.timers."rebuild" = {
 };
 
 systemd.services. "rebuild" = {
-  script = ''nixos-rebuild --flake /home/marie/server switch
+  script = ''${pkgs.nix}nixos-rebuild --flake /home/marie/server switch
   '';
   serviceConfig = {
     Type = "oneshot";
