@@ -13,7 +13,7 @@ jobs:
     - uses: cachix/install-nix-action@v25
       with:
         nix_path: nixpkgs=channel:nixos-unstable
+    - run: nix flake init
     - run: nix build
     - run: nix flake check
-    - run: nix flake init
     - run: nixos-rebuild --dry-run
