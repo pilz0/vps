@@ -16,4 +16,4 @@ jobs:
     - run: nix flake init
     - run: nix build
     - run: nix flake check
-    - run: nixos-rebuild --dry-run
+    - run: nixos-rebuild --flake . switch
