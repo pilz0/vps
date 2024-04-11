@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    defaultPackage.x86_64-linux;
   };
   outputs = { nixpkgs, ... }: {
     nixosConfigurations = {
