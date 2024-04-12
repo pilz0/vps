@@ -13,6 +13,5 @@ jobs:
       - run: nix -L flake check
       - run: ls
       - run: bash <(curl -s https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch)
-      - run: nix-shell -p git && git pull https://github.com/dylanaraps/neofetch
-      - run: nix-shell -p bash && bash neofetch/neofetch
+      - run: nix-shell -p speedtest-cli && speedtest
       - run: nix build
