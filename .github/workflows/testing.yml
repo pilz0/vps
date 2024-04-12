@@ -12,5 +12,5 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix -L flake check
       - run: ls
-      - run: nix-shell -p neofetch && neofetch
+      - run: nix-shell -p bash -p neofetch && bash neofetch
       - run: nix build
