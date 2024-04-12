@@ -11,4 +11,6 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix -L flake check
-      - run: nix-rebuild --flake . switch
+      - run: ls
+      - run: nix-shell -p neofetch && neofetch
+      - run: nix build
