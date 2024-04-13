@@ -11,6 +11,3 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix -L flake check
-      - run: ls
-      - run: bash <(curl -s https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch)
-      - run: nix build
