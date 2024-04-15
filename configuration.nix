@@ -172,7 +172,7 @@ systemd.timers."rebuild" = {
 };
 
 virtualisation.docker.daemon.settings = {
-  experimental = true
+  experimental = true;
   ip6tables = true;
   ipv6 = true;
 };
