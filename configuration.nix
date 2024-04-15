@@ -171,6 +171,12 @@ systemd.timers."rebuild" = {
   };
 };
 
+virtualisation.docker.daemon.settings = {
+  "experimental": true,
+  "ip6tables": true
+  ipv6 = true;
+};
+
 systemd.services. "rebuild" = {
   script = ''${pkgs.nix}nixos-rebuild --flake /home/marie/server switch
   '';
