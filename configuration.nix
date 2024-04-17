@@ -163,12 +163,11 @@ system.autoUpgrade = {
 services.uptime-kuma.enable = true;
 services.uptime-kuma.settings = {
     PORT = "3000";
-    DATA_DIR = "/home/marie/mykuma/data"; 
+    DATA_DIR = "/home/marie/mykuma/data";
     };
-
 nix.optimise.automatic = true;
-nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule
-
+nix.optimise.dates = [ "03:45" ];
+lib.mkDefault = "50";
 systemd.timers."rebuild" = {
   wantedBy = [ "timers.target" ];
   timerConfig = {
