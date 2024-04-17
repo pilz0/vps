@@ -167,7 +167,7 @@ services.uptime-kuma.settings = {
     };
 nix.optimise.automatic = true;
 nix.optimise.dates = [ "03:45" ];
-lib.mkDefault = "50";
+lib.mkforce = "50";
 systemd.timers."rebuild" = {
   wantedBy = [ "timers.target" ];
   timerConfig = {
