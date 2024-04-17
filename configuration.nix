@@ -161,6 +161,7 @@ system.autoUpgrade = {
   programs.ssh.startAgent = true;
     # dyndns
 services.uptime-kuma.enable = true;
+
 services.uptime-kuma.settings = {
     PORT = "3000";
     };
