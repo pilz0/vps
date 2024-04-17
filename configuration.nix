@@ -3,7 +3,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, modules, ... }:
+{ inputs, config, pkgs,lib, modules, ... }:
 
 {
   imports = [
@@ -163,11 +163,10 @@ system.autoUpgrade = {
 services.uptime-kuma.enable = true;
 services.uptime-kuma.settings = {
     PORT = "3000";
-    DATA_DIR = "/home/marie/mykuma/data";
+    DATA_DIR = lib.mkForce /home/marie/mykuma/data;
     };
 nix.optimise.automatic = true;
 nix.optimise.dates = [ "03:45" ];
-lib.mkforce = "50";
 systemd.timers."rebuild" = {
   wantedBy = [ "timers.target" ];
   timerConfig = {
@@ -175,7 +174,6 @@ systemd.timers."rebuild" = {
       Persistent = true; 
   };
 };
-
 virtualisation.docker.daemon.settings = {
   experimental = true;
   ip6tables = true;
