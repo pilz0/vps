@@ -99,6 +99,8 @@
     cmatrix
     btop
     wget
+    rclone
+    restic
     gtop
     freerdp
     killall
