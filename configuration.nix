@@ -183,13 +183,21 @@ virtualisation.docker.daemon.settings = {
   ipv6 = true;
 };
 
-systemd.services. "rebuild" = {
-  script = ''${pkgs.nix}nixos-rebuild --flake /home/marie/server switch
+systemd.services."backup" = {
+  script = ''${pkgs.restic}restic -r rclone:smb:/Buro/backup backup -p /home/marie/restic/password --verbose /home /var/lib/docker
   '';
   serviceConfig = {
     Type = "oneshot";
     User = "root";
   };
+};
+systemd.timers."backup" = {
+  wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "10m";
+      OnUnitActiveSec = "24h";
+      Unit = "backup.service";
+    };
 };
 
       # Open ports in the firewall.
