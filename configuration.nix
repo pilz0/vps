@@ -94,6 +94,7 @@
     cargo
     gcc
     docker-compose
+    cron
     vlc
     alacritty
     cmatrix
