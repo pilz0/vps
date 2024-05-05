@@ -183,7 +183,7 @@ virtualisation.docker.daemon.settings = {
   ip6tables = true;
   ipv6 = true;
 };
-
+services.tailscale.enable = true;
 systemd.services."backup" = {
   script = ''${pkgs.restic}restic -r rclone:smb:/Buro/backup backup -p /home/marie/restic/password --verbose /home /var/lib/docker
   '';
