@@ -64,7 +64,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   #Docker
-  virtualisation.docker.enable = true;
   #All my Programms :3
   environment.systemPackages = with pkgs; [
     htop
@@ -83,7 +82,6 @@
     speedtest-cli
     rustc
     pciutils
-    docker
     git
     veracrypt
     metasploit
@@ -93,7 +91,6 @@
     superTuxKart
     cargo
     gcc
-    docker-compose
     cron
     vlc
     alacritty
