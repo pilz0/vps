@@ -108,7 +108,9 @@
     pipes
     curl
     ddclient
+    docker-compose
     ];
+    virtualisation.docker.enable = true;
     #an openssh banner, is shown everytime you try to connect
     services.openssh.banner = "
       ***************************************************************************
