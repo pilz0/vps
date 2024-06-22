@@ -11,8 +11,11 @@
     ./hardware-configuration.nix
   ];
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.device = "/dev/vda";
+  # rando shit
+  networking.domain = "vps.ketamin.trade";
+  boot.tmp.cleanOnBoot = true;
+  zramSwap.enable = true;
   #Hostname
   networking.hostName = "serva";
   #Self doxx UwU
@@ -31,26 +34,15 @@
     LC_TIME = "de_DE.UTF-8";
   };
   console.keyMap = "de";
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
   #my user account
       users.users.marie.isNormalUser = true;
       users.users.marie.description = "marie";
       users.users.marie.extraGroups = [ "networkmanager" "wheel" ];
+      users.users.marie.initialPassword = "ichmagschwänze";
     
   #Services
   #zsh
     networking.networkmanager.enable = true;
-  #Mullvad VPN
-    services.mullvad-vpn.enable = true;
   #Flakes
   nix = {
     package = pkgs.nixVersions.stable;
@@ -133,7 +125,6 @@
       stated in this warning.
       *****************************************************************************";
 # spotifyd is a service for streaming spotify to this device
-services.spotifyd.enable = true;
   programs.zsh.enable = true;
     programs.zsh.ohMyZsh.enable = true;
     programs.zsh.ohMyZsh.theme = "crunch";
@@ -145,18 +136,21 @@ services.spotifyd.enable = true;
   #git  
     programs.git.config.user.name = "pilz0";
     programs.git.config.user.email = "marie0@riseup.net";
-# Autoupdate 
-system.autoUpgrade = {
+
+services.tor = {
   enable = true;
-  dates = "hourly";
-  allowReboot = false; 
-  flake = "github:pilz0/server";
-  flags = [
-    "--update-input"
-    "nixpkgs"
-    "-L" # print build logs
-  ];
-  randomizedDelaySec = "45min";
+  openFirewall = true;
+  relay = {
+    enable = true;
+    role = "relay";
+  };
+  settings = {
+    ContactInfo = "toradmin@ketamin.trade";
+    Nickname = "speedyboi";
+    ORPort = 9001;
+    ControlPort = 9051;
+    BandWidthRate = "4 MBytes";
+  };
 };
   environment.sessionVariables.NIXPKGS_ALLOW_UNFREE="1"; 
 # Openssh
@@ -164,37 +158,13 @@ system.autoUpgrade = {
   services.openssh.settings.PasswordAuthentication = false;
   programs.ssh.startAgent = true;
     # dyndns
-services.uptime-kuma.enable = true;
 
-services.uptime-kuma.settings = {
-    PORT = "3000";
-    };
-nix.optimise.automatic = true;
-nix.optimise.dates = [ "03:45" ];
-systemd.timers."rebuild" = {
-  wantedBy = [ "timers.target" ];
-  timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true; 
-  };
+virtualisation.docker.daemon.settings = {
+  experimental = true;
+#  ip6tables = true;
+#  ipv6 = true;
 };
-services.tailscale.enable = true;
-systemd.services."backup" = {
-  script = ''${pkgs.restic}restic -r rclone:smb:/Buro/backup backup -p /home/marie/restic/password --verbose /home /var/lib/docker
-  '';
-  serviceConfig = {
-    Type = "oneshot";
-    User = "root";
-  };
-};
-systemd.timers."backup" = {
-  wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "10m";
-      OnUnitActiveSec = "24h";
-      Unit = "backup.service";
-    };
-};
+
 
       # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 3001 9090 9100 1312 ];

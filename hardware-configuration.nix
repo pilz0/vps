@@ -4,26 +4,18 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_blk" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/9a13a3f6-23f7-4e5e-a054-f1b2a44a0a5e";
+    { device = "/dev/disk/by-uuid/e70129c2-6140-4c2c-8358-69bd665cd7ae";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-2156fa13-9234-48de-9fd5-5ff882ab9521".device = "/dev/disk/by-uuid/2156fa13-9234-48de-9fd5-5ff882ab9521";
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/E578-E95C";
-      fsType = "vfat";
-    };
 
   swapDevices = [ ];
 
@@ -32,8 +24,8 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.ens6.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  virtualisation.hypervGuest.enable = true;
 }
