@@ -164,7 +164,12 @@ virtualisation.docker.daemon.settings = {
 #  ip6tables = true;
 #  ipv6 = true;
 };
-
+  system.autoUpgrade = {
+    enable = true;
+    dates = "hourly";
+    flake = "git+https://github.com/pilz0/vps";
+    allowReboot = true;
+  };
 
       # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 3001 9090 9100 1312 ];
