@@ -1,4 +1,3 @@
-
 ### Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
@@ -39,7 +38,7 @@
       users.users.marie.description = "marie";
       users.users.marie.extraGroups = [ "networkmanager" "wheel" ];
       users.users.marie.initialPassword = "ichmagschwänze";
-    
+
   #Services
   #zsh
     networking.networkmanager.enable = true;
@@ -50,9 +49,8 @@
       experimental-features = nix-command flakes
     '';
      };
-  # Maii keyy :3 
-  users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIBTGgUYUsIAtcbZBqk5Mq0LH2T5KGFjdjAgNIwUf+/LBAAAABHNzaDo= pilz@framewok" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6weqYi/f7nQzsCr11NVz/7cdmpSq7sU1N+Ag5jM45S daniel@underdesk
-" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEueD1iCnBEUm3PaSoi4hKvhdbMYgIujucBXT0I18RM2 gaming"
+  # Maii keyy :3
+  users.users.marie.openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIBTGgUYUsIAtcbZBqk5Mq0LH2T5KGFjdjAgNIwUf+/LBAAAABHNzaDo= pilz@framewok" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6weqYi/f7nQzsCr11NVz/7cdmpSq7sU1N+Ag5jM45S daniel@underdesk" "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBAGgIgZKjLpJFdYK1+Ovd1IHQZhdCy2ZIz1Sf8qVGErkNVPkYOU3iJRoK2pJKrotZTo/2oTaSTzxewXKKJQ98toAAAAEc3NoOg== pilz@token2"
  ];
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -103,9 +101,7 @@
     ddclient
     docker-compose
     ];
-    virtualisation.docker.enable = true;
-    virtualisation.containerd.enable = true;
-    #an openssh banner, is shown everytime you try to connect
+     #an openssh banner, is shown everytime you try to connect
     services.openssh.banner = "
       ***************************************************************************
                                   NOTICE TO USERS
@@ -131,10 +127,10 @@
     programs.zsh.ohMyZsh.theme = "crunch";
     programs.zsh.autosuggestions.enable = true;
     programs.zsh.shellAliases = { backup = "restic -r rclone:onedrive:/backup/server1 backup --verbose /home";};
-    programs.zsh.shellAliases = { update = "sudo nix flake update /home/marie/server";};
-    programs.zsh.shellAliases = { rebuild = "sudo nixos-rebuild --flake /home/marie/server switch";};
+    programs.zsh.shellAliases = { update = "sudo nix flake update /home/marie/vps";};
+    programs.zsh.shellAliases = { rebuild = "sudo nixos-rebuild --flake /home/marie/vps switch";};
     users.defaultUserShell = pkgs.zsh;
-  #git  
+  #git
     programs.git.config.user.name = "pilz0";
     programs.git.config.user.email = "marie0@riseup.net";
 
@@ -146,25 +142,19 @@ services.tor = {
     role = "relay";
   };
   settings = {
-    ContactInfo = "toradmin@ketamin.trade";
+    ContactInfo = "darmstadt@fridaysforfuture.de";
     Nickname = "speedyboi";
     ORPort = 9001;
     ControlPort = 9051;
-    BandWidthRate = "4 MBytes";
+    BandWidthRate = "40 MBytes";
   };
 };
-  environment.sessionVariables.NIXPKGS_ALLOW_UNFREE="1"; 
+  environment.sessionVariables.NIXPKGS_ALLOW_UNFREE="1";
 # Openssh
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   programs.ssh.startAgent = true;
-    # dyndns
 
-virtualisation.docker.daemon.settings = {
-  experimental = true;
-#  ip6tables = true;
-#  ipv6 = true;
-};
   system.autoUpgrade = {
     enable = true;
     dates = "hourly";
@@ -172,20 +162,29 @@ virtualisation.docker.daemon.settings = {
     allowReboot = true;
   };
 
+  services.prometheus = {
+   exporters = {
+      node = {
+        enable = true;
+        enabledCollectors = [ "systemd" ];
+        port = 9100;
+      };
+};
+};
       # Open ports in the firewall.
-   networking.firewall.allowedTCPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 3001 9090 9100 1312 ];
-   networking.firewall.allowedUDPPorts = [ 1100 11000 81 8080 443 80 22 3000 8443 1337 3001 9090 9100 1312 ];
+   networking.firewall.allowedTCPPorts = [ 80 443 22 9100 9001 9051 ];
+   networking.firewall.allowedUDPPorts = [ 80 443 22 9100 9001 9051 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 # NixOS Version
   system.stateVersion = "23.11"; # Did you read the comment?
 }
   ## github copilot wrote this
-#  I hope you can help me. 
-#  I’m not sure if this is the issue, but I think you need to use  users.users.marie.openssh.authorizedKeys.keys  instead of  users.users.marie.openssh.authorizedKeys . 
-#  I tried it, but it didn’t work. 
-#  I think the problem is that the authorizedKeys.keys is not a list of strings, but a list of objects with a key and a value. 
-#  I think the problem is that the authorizedKeys.keys is not a list of strings, but a list of objects with a key and a value. 
-#  That’s not correct. The  authorizedKeys.keys  attribute is a list of strings. 
-#  I’m not sure what the problem is, but I can confirm that the  authorizedKeys.keys  attribute is a list of strings. 
+#  I hope you can help me.
+#  I’m not sure if this is the issue, but I think you need to use  users.users.marie.openssh.authorizedKeys.keys  instead of  users.users.marie.openssh.authorizedKeys .
+#  I tried it, but it didn’t work.
+#  I think the problem is that the authorizedKeys.keys is not a list of strings, but a list of objects with a key and a value.
+#  I think the problem is that the authorizedKeys.keys is not a list of strings, but a list of objects with a key and a value.
+#  That’s not correct. The  authorizedKeys.keys  attribute is a list of strings.
+#  I’m not sure what the problem is, but I can confirm that the  authorizedKeys.keys  attribute is a list of strings.
 #  I’m sorry, I was wrong.
